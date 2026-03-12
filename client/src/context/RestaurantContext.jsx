@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { menuItems } from "../data/restaurantData";
 
 const RestaurantContext = createContext(null);
+const authKey = "digitquo-auth";
 
 const bookingReference = () => `DQ-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
 
@@ -10,10 +11,26 @@ export const RestaurantProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [booking, setBooking] = useState(null);
   const [orderNotice, setOrderNotice] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    const stored = window.localStorage.getItem(authKey);
+    setIsLoggedIn(stored === "true");
+  }, []);
+
+  const login = () => {
+    window.localStorage.setItem(authKey, "true");
+    setIsLoggedIn(true);
+  };
+
+  const logout = () => {
+    window.localStorage.setItem(authKey, "false");
+    setIsLoggedIn(false);
+  };
 
   const addToCart = (itemId) => {
     const item = menuItems.find((entry) => entry.id === itemId);
@@ -81,6 +98,9 @@ export const RestaurantProvider = ({ children }) => {
     submitBooking,
     orderNotice,
     setOrderNotice,
+    isLoggedIn,
+    login,
+    logout,
   };
 
   return <RestaurantContext.Provider value={value}>{children}</RestaurantContext.Provider>;

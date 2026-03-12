@@ -9,7 +9,7 @@ export const AppShell = ({ children }) => {
   const [newsletterMessage, setNewsletterMessage] = useState("");
   const [salesOpen, setSalesOpen] = useState(false);
   const { pathname } = useLocation();
-  const { theme, setTheme, cartCount } = useRestaurant();
+  const { theme, setTheme, cartCount, isLoggedIn, logout } = useRestaurant();
   const hasShownRef = useRef(false);
   const salesTimerRef = useRef(null);
 
@@ -63,8 +63,11 @@ export const AppShell = ({ children }) => {
       <div className="app-shell">
         <header className="site-header">
           <NavLink className="brand" to="/" aria-label="DIGITQUO Demo Restaurant Home">
-            <span>{siteMeta.name}</span>
-            <small>{siteMeta.subtitle.toUpperCase()}</small>
+            <img className="brand-logo" src="/logo.png" alt="DIGITQUO logo" />
+            <div className="brand-text">
+              <span>{siteMeta.name}</span>
+              <small>{siteMeta.subtitle.toUpperCase()}</small>
+            </div>
           </NavLink>
 
           <nav className={`site-nav ${menuOpen ? "is-open" : ""}`}>
@@ -78,9 +81,21 @@ export const AppShell = ({ children }) => {
                 {link.label}
               </NavLink>
             ))}
+            <a className="nav-login" href="/login.html">
+              Login
+            </a>
           </nav>
 
           <div className="nav-actions">
+            {isLoggedIn ? (
+              <button className="button button-secondary login-button" type="button" onClick={logout}>
+                Logout
+              </button>
+            ) : (
+              <a className="button button-secondary login-button" href="/login.html">
+                Login
+              </a>
+            )}
             <button
               className="theme-toggle"
               type="button"

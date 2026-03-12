@@ -31,7 +31,7 @@ const seatingZones = [
 const unavailableSlots = new Set(["7:00 PM", "8:00 PM"]);
 
 export const ReservationsPage = () => {
-  const { booking, submitBooking } = useRestaurant();
+  const { booking, submitBooking, isLoggedIn } = useRestaurant();
   const [selectedTime, setSelectedTime] = useState(reservationSlots[2]);
   const [message, setMessage] = useState("");
   const [guestCount, setGuestCount] = useState("");
@@ -43,6 +43,11 @@ export const ReservationsPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!isLoggedIn) {
+      setMessage("Please login to book a table. Use the Login button in the header.");
+      return;
+    }
+
     const formData = new FormData(event.currentTarget);
     const confirmation = submitBooking({
       name: formData.get("name"),

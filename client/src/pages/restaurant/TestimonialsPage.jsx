@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { DemoCta, PageHero, SectionHeading } from "../../components/restaurant/PageBits";
 import { Reveal } from "../../components/restaurant/Reveal";
 import { testimonials as baseTestimonials } from "../../data/restaurantData";
+import { useRestaurant } from "../../context/RestaurantContext";
 
 const storageKey = "digitquo-demo-reviews";
 const maxStars = 5;
@@ -21,6 +22,8 @@ export const TestimonialsPage = () => {
     rating: "5",
     review: "",
   });
+  const { isLoggedIn } = useRestaurant();
+  const [notice, setNotice] = useState("");
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -60,6 +63,10 @@ export const TestimonialsPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!isLoggedIn) {
+      setNotice("Please login to submit a review.");
+      return;
+    }
     if (!formState.name || !formState.review) {
       return;
     }
@@ -73,6 +80,7 @@ export const TestimonialsPage = () => {
 
     setCustomReviews((current) => [newReview, ...current]);
     setFormState({ name: "", role: "Restaurant Owner", rating: "5", review: "" });
+    setNotice("Review submitted (demo). Thank you!");
   };
 
   return (
@@ -147,6 +155,7 @@ export const TestimonialsPage = () => {
             />
             <button type="submit" className="button button-primary">Submit Review</button>
           </form>
+          {notice ? <p className="form-message success">{notice}</p> : null}
         </Reveal>
 
         <div className="testimonial-grid">

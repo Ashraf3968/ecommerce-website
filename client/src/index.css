@@ -598,3 +598,49 @@ textarea, .slot-picker, .reservation-page-form .button { grid-column: 1 / -1; }
     flex-direction: column;
   }
 }
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-text {
+  display: grid;
+  gap: 0.28rem;
+  line-height: 1;
+}
+
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 640px) {
+  .brand-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+}
+.nav-login {
+  display: none;
+  color: var(--muted);
+}
+
+.login-button {
+  padding: 0.6rem 1rem;
+}
+
+@media (max-width: 860px) {
+  .login-button {
+    display: none;
+  }
+  .nav-login {
+    display: inline-flex;
+  }
+}
