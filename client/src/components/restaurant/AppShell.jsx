@@ -8,12 +8,17 @@ export const AppShell = ({ children }) => {
   const [loaderVisible, setLoaderVisible] = useState(true);
   const [newsletterMessage, setNewsletterMessage] = useState("");
   const [salesOpen, setSalesOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
+  const [accountMode, setAccountMode] = useState("login");
+  const [accountError, setAccountError] = useState("");
+  const [accountMessage, setAccountMessage] = useState("");
   const { pathname } = useLocation();
   const {
     theme,
     setTheme,
     cartCount,
     isLoggedIn,
+    login,
     logout,
     authPrompt,
     closeAuthPrompt,
@@ -51,6 +56,14 @@ export const AppShell = ({ children }) => {
     return () => window.clearTimeout(salesTimerRef.current);
   }, [salesOpen]);
 
+  useEffect(() => {
+    if (authPrompt.open) {
+      setAccountOpen(true);
+      setAccountMode("login");
+      setAccountMessage(authPrompt.message);
+    }
+  }, [authPrompt.open, authPrompt.message]);
+
   const handleNewsletter = (event) => {
     event.preventDefault();
     setNewsletterMessage("You are subscribed to the DIGITQUO demo newsletter.");
@@ -58,6 +71,60 @@ export const AppShell = ({ children }) => {
   };
 
   const closeSales = () => setSalesOpen(false);
+
+  const closeAccount = () => {
+    setAccountOpen(false);
+    setAccountError("");
+    setAccountMessage("");
+    closeAuthPrompt();
+  };
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email").trim();
+    const password = formData.get("password").trim();
+
+    if (!email || !password) {
+      setAccountError("Please enter your email and password.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setAccountError("Password must be at least 6 characters.");
+      return;
+    }
+
+    login();
+    closeAccount();
+  };
+
+  const handleSignup = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const name = formData.get("name").trim();
+    const email = formData.get("email").trim();
+    const password = formData.get("password").trim();
+    const confirm = formData.get("confirm").trim();
+
+    if (!name || !email || !password || !confirm) {
+      setAccountError("Please fill in all fields.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setAccountError("Password must be at least 6 characters.");
+      return;
+    }
+
+    if (password !== confirm) {
+      setAccountError("Passwords do not match.");
+      return;
+    }
+
+    login();
+    closeAccount();
+  };
 
   return (
     <>
@@ -79,6 +146,9 @@ export const AppShell = ({ children }) => {
           </NavLink>
 
           <nav className={`site-nav ${menuOpen ? "is-open" : ""}`}>
+            <button className="nav-account" type="button" onClick={() => { setAccountOpen(true); setAccountMode("login"); setAccountMessage(""); setMenuOpen(false); }}>
+              {isLoggedIn ? "Account" : "Login"}
+            </button>
             {navLinks.map((link) => (
               <NavLink
                 key={link.to}
@@ -89,29 +159,9 @@ export const AppShell = ({ children }) => {
                 {link.label}
               </NavLink>
             ))}
-            <a className="nav-login" href="/login.html">
-              Login
-            </a>
-            <a className="nav-login" href="/signup.html">
-              Sign Up
-            </a>
           </nav>
 
           <div className="nav-actions">
-            {isLoggedIn ? (
-              <button className="button button-secondary login-button" type="button" onClick={logout}>
-                Logout
-              </button>
-            ) : (
-              <div className="login-actions-right">
-                <a className="button button-secondary login-button" href="/login.html">
-                  Login
-                </a>
-                <a className="button button-primary signup-button" href="/signup.html">
-                  Sign Up
-                </a>
-              </div>
-            )}
             <button
               className="theme-toggle"
               type="button"
@@ -123,6 +173,17 @@ export const AppShell = ({ children }) => {
             <NavLink className="cart-pill" to="/order">
               Cart {cartCount}
             </NavLink>
+            <button
+              className="button button-primary account-button"
+              type="button"
+              onClick={() => {
+                setAccountOpen(true);
+                setAccountMode("login");
+                setAccountMessage("");
+              }}
+            >
+              {isLoggedIn ? "Account" : "Login"}
+            </button>
             <button
               className={`hamburger ${menuOpen ? "is-open" : ""}`}
               type="button"
@@ -199,26 +260,79 @@ export const AppShell = ({ children }) => {
         </div>
       ) : null}
 
-      {authPrompt.open ? (
-        <div className="modal-overlay" role="dialog" aria-modal="true" onClick={closeAuthPrompt}>
-          <div className="modal-surface auth-modal" onClick={(event) => event.stopPropagation()}>
-            <div className="sales-modal-header">
+      {accountOpen ? (
+        <div className="modal-overlay" role="dialog" aria-modal="true" onClick={closeAccount}>
+          <div className="modal-surface account-modal" onClick={(event) => event.stopPropagation()}>
+            <div className="account-modal-header">
               <div>
-                <p className="eyebrow">Login Required</p>
-                <h2>Login or Sign Up to Continue</h2>
-                <p className="hero-copy">{authPrompt.message}</p>
+                <p className="eyebrow">Account</p>
+                <h2>{accountMode === "login" ? "Login" : "Create Account"}</h2>
+                {accountMessage ? <p className="hero-copy">{accountMessage}</p> : null}
               </div>
-              <button className="lightbox-close" type="button" onClick={closeAuthPrompt}>
+              <button className="lightbox-close" type="button" onClick={closeAccount}>
                 Close
               </button>
             </div>
-            <div className="hero-actions">
-              <a className="button button-primary" href="/login.html">Login</a>
-              <a className="button button-secondary" href="/signup.html">Sign Up</a>
-            </div>
+
+            {isLoggedIn ? (
+              <div className="account-logged">
+                <p className="hero-copy">You are logged in. Use the button below to log out.</p>
+                <button className="button button-secondary" type="button" onClick={() => { logout(); closeAccount(); }}>
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <>
+                {accountMode === "login" ? (
+                  <form className="account-form" onSubmit={handleLogin}>
+                    <label htmlFor="accountEmail">Email</label>
+                    <input id="accountEmail" name="email" type="email" placeholder="you@restaurant.com" required />
+
+                    <label htmlFor="accountPassword">Password</label>
+                    <input id="accountPassword" name="password" type="password" placeholder="Enter password" required />
+
+                    {accountError ? <p className="form-message">{accountError}</p> : null}
+
+                    <button className="button button-primary" type="submit">Login</button>
+                    <div className="account-divider">
+                      <span>New here?</span>
+                    </div>
+                    <button className="link-button" type="button" onClick={() => { setAccountMode("signup"); setAccountError(""); }}>
+                      Create Account
+                    </button>
+                  </form>
+                ) : (
+                  <form className="account-form" onSubmit={handleSignup}>
+                    <label htmlFor="signupName">Full Name</label>
+                    <input id="signupName" name="name" type="text" placeholder="Full name" required />
+
+                    <label htmlFor="signupEmail">Email</label>
+                    <input id="signupEmail" name="email" type="email" placeholder="you@restaurant.com" required />
+
+                    <label htmlFor="signupPassword">Password</label>
+                    <input id="signupPassword" name="password" type="password" placeholder="Create password" required />
+
+                    <label htmlFor="signupConfirm">Confirm Password</label>
+                    <input id="signupConfirm" name="confirm" type="password" placeholder="Confirm password" required />
+
+                    {accountError ? <p className="form-message">{accountError}</p> : null}
+
+                    <button className="button button-primary" type="submit">Create Account</button>
+                    <div className="account-divider">
+                      <span>Already have an account?</span>
+                    </div>
+                    <button className="link-button" type="button" onClick={() => { setAccountMode("login"); setAccountError(""); }}>
+                      Back to Login
+                    </button>
+                  </form>
+                )}
+              </>
+            )}
           </div>
         </div>
       ) : null}
     </>
   );
 };
+
+

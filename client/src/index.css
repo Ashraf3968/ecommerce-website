@@ -675,3 +675,93 @@ textarea, .slot-picker, .reservation-page-form .button { grid-column: 1 / -1; }
   stroke: var(--primary-strong);
   stroke-width: 1.4;
 }
+.account-button {
+  padding: 0.6rem 1.1rem;
+  min-height: 46px;
+}
+
+.account-modal {
+  animation: fadeIn 0.35s ease;
+}
+
+.account-modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1.2rem;
+}
+
+.account-form {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.account-form label {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.account-form input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+}
+
+.account-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.account-divider::before,
+.account-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: var(--primary-strong);
+  font-weight: 600;
+  text-align: left;
+  padding: 0;
+}
+
+.account-logged {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (max-width: 860px) {
+  .account-button {
+    display: none;
+  }
+}
+.nav-account {
+  display: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  background: var(--surface-light);
+  color: var(--text);
+}
+
+@media (max-width: 860px) {
+  .nav-account {
+    display: inline-flex;
+  }
+}
+.stars {
+  display: flex;
+  gap: 0.25rem;
+  justify-content: center;
+}
