@@ -576,3 +576,25 @@ textarea, .slot-picker, .reservation-page-form .button { grid-column: 1 / -1; }
     grid-template-columns: 1fr;
   }
 }
+.sales-modal {
+  animation: fadeIn 0.4s ease;
+}
+
+.sales-modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 640px) {
+  .sales-modal-header {
+    flex-direction: column;
+  }
+}

@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { navLinks, siteMeta } from "../../data/restaurantData";
 import { useRestaurant } from "../../context/RestaurantContext";
-import { PurchaseModalContent } from "./PageBits";
 
 export const AppShell = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loaderVisible, setLoaderVisible] = useState(true);
   const [newsletterMessage, setNewsletterMessage] = useState("");
+  const [salesOpen, setSalesOpen] = useState(false);
   const { pathname } = useLocation();
-  const { theme, setTheme, cartCount, purchaseOpen, closePurchase } = useRestaurant();
+  const { theme, setTheme, cartCount } = useRestaurant();
+  const hasShownRef = useRef(false);
+  const salesTimerRef = useRef(null);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setLoaderVisible(false), 1100);
@@ -21,11 +23,33 @@ export const AppShell = ({ children }) => {
     setMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    salesTimerRef.current = window.setTimeout(() => {
+      setSalesOpen(true);
+      hasShownRef.current = true;
+    }, 5000);
+
+    return () => window.clearTimeout(salesTimerRef.current);
+  }, []);
+
+  useEffect(() => {
+    if (!salesOpen && hasShownRef.current) {
+      window.clearTimeout(salesTimerRef.current);
+      salesTimerRef.current = window.setTimeout(() => {
+        setSalesOpen(true);
+      }, 30000);
+    }
+
+    return () => window.clearTimeout(salesTimerRef.current);
+  }, [salesOpen]);
+
   const handleNewsletter = (event) => {
     event.preventDefault();
     setNewsletterMessage("You are subscribed to the DIGITQUO demo newsletter.");
     event.currentTarget.reset();
   };
+
+  const closeSales = () => setSalesOpen(false);
 
   return (
     <>
@@ -117,10 +141,29 @@ export const AppShell = ({ children }) => {
         </footer>
       </div>
 
-      {purchaseOpen ? (
-        <div className="modal-overlay" role="dialog" aria-modal="true" onClick={closePurchase}>
-          <div className="modal-surface" onClick={(event) => event.stopPropagation()}>
-            <PurchaseModalContent onClose={closePurchase} />
+      {salesOpen ? (
+        <div className="modal-overlay" role="dialog" aria-modal="true" onClick={closeSales}>
+          <div className="modal-surface sales-modal" onClick={(event) => event.stopPropagation()}>
+            <div className="sales-modal-header">
+              <div>
+                <p className="eyebrow">Own This Website for Your Restaurant</p>
+                <h2>Own This Website for Your Restaurant</h2>
+                <p className="hero-copy">
+                  Like this website? We are selling this complete restaurant website for only ?3,499. Get your business online today with a professional design.
+                </p>
+              </div>
+              <button className="lightbox-close" type="button" onClick={closeSales}>
+                Close
+              </button>
+            </div>
+            <div className="hero-actions">
+              <NavLink className="button button-primary" to="/contact" onClick={closeSales}>
+                Contact Us to Purchase
+              </NavLink>
+              <button className="button button-secondary" type="button" onClick={closeSales}>
+                Close
+              </button>
+            </div>
           </div>
         </div>
       ) : null}

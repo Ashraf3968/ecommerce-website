@@ -10,7 +10,6 @@ export const RestaurantProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [booking, setBooking] = useState(null);
   const [orderNotice, setOrderNotice] = useState("");
-  const [purchaseOpen, setPurchaseOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -82,9 +81,6 @@ export const RestaurantProvider = ({ children }) => {
     submitBooking,
     orderNotice,
     setOrderNotice,
-    purchaseOpen,
-    openPurchase: () => setPurchaseOpen(true),
-    closePurchase: () => setPurchaseOpen(false),
   };
 
   return <RestaurantContext.Provider value={value}>{children}</RestaurantContext.Provider>;

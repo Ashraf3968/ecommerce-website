@@ -187,7 +187,7 @@ export const testimonials = [
   {
     name: "Priya Patel",
     role: "Hospitality Consultant",
-    rating: 5,
+    rating: 4,
     review: "The reservation and menu experience feels polished enough to launch. Clients would immediately see the value.",
   },
   {
@@ -199,13 +199,13 @@ export const testimonials = [
   {
     name: "Sneha Kulkarni",
     role: "Boutique Hotel Partner",
-    rating: 5,
+    rating: 4,
     review: "This feels like a real premium hospitality brand, not a template. The booking flow is especially convincing.",
   },
   {
     name: "Rohan Desai",
     role: "Restaurant Owner",
-    rating: 5,
+    rating: 3,
     review: "Premium look, clear navigation, and strong conversion points. It makes the restaurant feel upscale instantly.",
   },
   {
@@ -217,7 +217,7 @@ export const testimonials = [
   {
     name: "Vikram Singh",
     role: "Hospitality Investor",
-    rating: 5,
+    rating: 4,
     review: "The booking system and menu presentation feel very close to a real production launch.",
   },
   {
@@ -229,13 +229,13 @@ export const testimonials = [
   {
     name: "Karan Shah",
     role: "Operations Head",
-    rating: 5,
+    rating: 3,
     review: "The structure is solid and conversion-ready. I could launch with this immediately.",
   },
   {
     name: "Pooja Nair",
     role: "Restaurant Consultant",
-    rating: 5,
+    rating: 4,
     review: "A premium demo that feels real, not template-like. Exactly what owners need to see.",
   },
   {
@@ -247,7 +247,7 @@ export const testimonials = [
   {
     name: "Kavya Iyer",
     role: "Marketing Lead",
-    rating: 5,
+    rating: 4,
     review: "Perfect mix of storytelling and booking conversion. This sells the experience.",
   },
   {
@@ -259,7 +259,7 @@ export const testimonials = [
   {
     name: "Meera Joshi",
     role: "Event Planner",
-    rating: 5,
+    rating: 4,
     review: "The private dining and reservation flow are especially convincing. Very professional.",
   },
   {
@@ -271,13 +271,13 @@ export const testimonials = [
   {
     name: "Nisha Reddy",
     role: "Restaurant Owner",
-    rating: 5,
+    rating: 3,
     review: "Everything feels cohesive, premium, and ready to sell. Strong demo execution.",
   },
   {
     name: "Siddharth Jain",
     role: "Brand Strategist",
-    rating: 5,
+    rating: 4,
     review: "Great UI/UX and a realistic booking system. This is demo quality that converts.",
   },
   {
@@ -289,7 +289,7 @@ export const testimonials = [
   {
     name: "Varun Bansal",
     role: "F&B Director",
-    rating: 5,
+    rating: 4,
     review: "The menu layout and ordering flow are clean and premium. Looks production-ready.",
   },
   {

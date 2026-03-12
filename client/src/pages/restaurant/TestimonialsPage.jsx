@@ -4,6 +4,13 @@ import { Reveal } from "../../components/restaurant/Reveal";
 import { testimonials as baseTestimonials } from "../../data/restaurantData";
 
 const storageKey = "digitquo-demo-reviews";
+const maxStars = 5;
+
+const renderStars = (rating) => {
+  const filled = "?".repeat(Math.max(0, Math.min(rating, maxStars)));
+  const empty = "?".repeat(Math.max(0, maxStars - rating));
+  return `${filled}${empty}`;
+};
 
 export const TestimonialsPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -89,7 +96,7 @@ export const TestimonialsPage = () => {
             Prev
           </button>
           <article className="testimonial-card featured-testimonial">
-            <div className="stars">{"?".repeat(baseTestimonials[activeIndex].rating)}</div>
+            <div className="stars">{renderStars(baseTestimonials[activeIndex].rating)}</div>
             <p>{baseTestimonials[activeIndex].review}</p>
             <strong>{baseTestimonials[activeIndex].name}</strong>
             <span>{baseTestimonials[activeIndex].role}</span>
@@ -145,7 +152,7 @@ export const TestimonialsPage = () => {
         <div className="testimonial-grid">
           {allTestimonials.map((testimonial) => (
             <Reveal className="testimonial-card compact-testimonial" key={`${testimonial.name}-${testimonial.review.slice(0, 12)}`}>
-              <div className="stars">{"?".repeat(testimonial.rating)}</div>
+              <div className="stars">{renderStars(testimonial.rating)}</div>
               <p>{testimonial.review}</p>
               <strong>{testimonial.name}</strong>
               <span>{testimonial.role}</span>
