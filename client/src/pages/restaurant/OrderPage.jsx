@@ -5,13 +5,37 @@ import { useRestaurant } from "../../context/RestaurantContext";
 import { menuItems } from "../../data/restaurantData";
 
 export const OrderPage = () => {
-  const { addToCart, cartItems, cartCount, cartTotal, updateCartItem, clearCart, orderNotice, setOrderNotice } = useRestaurant();
+  const {
+    addToCart,
+    cartItems,
+    cartCount,
+    cartTotal,
+    updateCartItem,
+    clearCart,
+    orderNotice,
+    setOrderNotice,
+    isLoggedIn,
+    openAuthPrompt,
+  } = useRestaurant();
   const [checkoutMessage, setCheckoutMessage] = useState("");
 
   const handleCheckout = () => {
+    if (!isLoggedIn) {
+      openAuthPrompt("Please login or sign up to place an order online.");
+      return;
+    }
+
     setCheckoutMessage(`Demo checkout prepared for ${cartCount} item${cartCount === 1 ? "" : "s"}. Total $${cartTotal.toFixed(2)}.`);
     clearCart();
     setTimeout(() => setOrderNotice(""), 1200);
+  };
+
+  const handleAdd = (itemId) => {
+    if (!isLoggedIn) {
+      openAuthPrompt("Please login or sign up to add items to your order.");
+      return;
+    }
+    addToCart(itemId);
   };
 
   return (
@@ -42,7 +66,7 @@ export const OrderPage = () => {
                 </div>
                 <div className="order-item-actions">
                   <strong>${item.price}</strong>
-                  <button type="button" onClick={() => addToCart(item.id)}>Add</button>
+                  <button type="button" onClick={() => handleAdd(item.id)}>Add</button>
                 </div>
               </Reveal>
             ))}

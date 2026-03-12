@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DIGITQUO Demo | Sign Up</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0908;
+        --bg-soft: #171210;
+        --card: rgba(28, 19, 15, 0.92);
+        --line: rgba(215, 180, 120, 0.18);
+        --text: #f8efe6;
+        --muted: #cdb9a8;
+        --primary: #d8b477;
+        --primary-strong: #f2cf92;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Manrope", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(216, 180, 119, 0.18), transparent 30%),
+          linear-gradient(180deg, var(--bg-soft), var(--bg));
+        color: var(--text);
+        display: grid;
+        place-items: center;
+        padding: 2rem 1rem;
+      }
+
+      .login-wrapper {
+        width: min(420px, 100%);
+        padding: 2.2rem;
+        border-radius: 22px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+      }
+
+      h1 {
+        margin: 0 0 0.6rem;
+        font-size: 2rem;
+      }
+
+      p {
+        margin: 0 0 1.6rem;
+        color: var(--muted);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.4rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        margin-bottom: 1rem;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: rgba(215, 180, 120, 0.6);
+        box-shadow: 0 0 0 4px rgba(215, 180, 120, 0.12);
+      }
+
+      .login-actions {
+        display: grid;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+      }
+
+      button,
+      a.button-link {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 46px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 700;
+        text-decoration: none;
+        color: #1f130e;
+        background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+        cursor: pointer;
+      }
+
+      .secondary {
+        background: transparent;
+        border-color: var(--line);
+        color: var(--text);
+      }
+
+      .helper-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .helper-row a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      .error {
+        color: #f2cf92;
+        font-size: 0.9rem;
+        margin: 0.4rem 0 0;
+      }
+
+      @media (max-width: 480px) {
+        .login-wrapper {
+          padding: 1.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-wrapper">
+      <h1>Create Your Account</h1>
+      <p>Sign up to manage bookings, reviews, and online orders.</p>
+      <form id="signupForm" novalidate>
+        <label for="name">Full Name</label>
+        <input id="name" name="name" type="text" placeholder="Enter full name" required />
+
+        <label for="email">Email Address</label>
+        <input id="email" name="email" type="email" placeholder="Enter email" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Create password" required minlength="6" />
+
+        <label for="confirm">Confirm Password</label>
+        <input id="confirm" name="confirm" type="password" placeholder="Confirm password" required minlength="6" />
+
+        <div class="helper-row">
+          <span class="error" id="errorMsg"></span>
+          <a href="/login.html">Already have an account?</a>
+        </div>
+
+        <div class="login-actions">
+          <button type="submit">Create Account</button>
+          <a class="button-link secondary" href="/">Back to Home</a>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      const form = document.getElementById("signupForm");
+      const errorMsg = document.getElementById("errorMsg");
+      const authKey = "digitquo-auth";
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const password = form.password.value.trim();
+        const confirm = form.confirm.value.trim();
+
+        if (!name || !email || !password || !confirm) {
+          errorMsg.textContent = "Please fill in all fields.";
+          return;
+        }
+
+        if (password.length < 6) {
+          errorMsg.textContent = "Password must be at least 6 characters.";
+          return;
+        }
+
+        if (password !== confirm) {
+          errorMsg.textContent = "Passwords do not match.";
+          return;
+        }
+
+        window.localStorage.setItem(authKey, "true");
+        errorMsg.textContent = "Account created. Redirecting...";
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 900);
+      });
+    </script>
+  </body>
+</html>

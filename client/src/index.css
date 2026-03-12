@@ -644,3 +644,34 @@ textarea, .slot-picker, .reservation-page-form .button { grid-column: 1 / -1; }
     display: inline-flex;
   }
 }
+@media (max-width: 860px) {
+  .login-actions-right {
+    display: none;
+  }
+}
+
+.login-actions-right {
+  display: inline-flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.signup-button {
+  padding: 0.6rem 1rem;
+}
+
+.auth-modal .hero-actions {
+  justify-content: flex-start;
+}
+
+.star-icon {
+  width: 18px;
+  height: 18px;
+  fill: var(--primary-strong);
+}
+
+.star-icon.is-empty {
+  fill: transparent;
+  stroke: var(--primary-strong);
+  stroke-width: 1.4;
+}

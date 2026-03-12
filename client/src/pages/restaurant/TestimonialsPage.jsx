@@ -7,11 +7,23 @@ import { useRestaurant } from "../../context/RestaurantContext";
 const storageKey = "digitquo-demo-reviews";
 const maxStars = 5;
 
-const renderStars = (rating) => {
-  const filled = "?".repeat(Math.max(0, Math.min(rating, maxStars)));
-  const empty = "?".repeat(Math.max(0, maxStars - rating));
-  return `${filled}${empty}`;
-};
+const Star = ({ filled }) => (
+  <svg
+    className={`star-icon ${filled ? "" : "is-empty"}`.trim()}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path d="M12 2.75l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.05 1.11-6.46-4.7-4.58 6.49-.94L12 2.75z" />
+  </svg>
+);
+
+const renderStars = (rating) => (
+  <div className="stars">
+    {Array.from({ length: maxStars }).map((_, index) => (
+      <Star key={index} filled={index < rating} />
+    ))}
+  </div>
+);
 
 export const TestimonialsPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -22,7 +34,7 @@ export const TestimonialsPage = () => {
     rating: "5",
     review: "",
   });
-  const { isLoggedIn } = useRestaurant();
+  const { isLoggedIn, openAuthPrompt } = useRestaurant();
   const [notice, setNotice] = useState("");
 
   useEffect(() => {
@@ -64,7 +76,7 @@ export const TestimonialsPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!isLoggedIn) {
-      setNotice("Please login to submit a review.");
+      openAuthPrompt("Please login or sign up to submit a review.");
       return;
     }
     if (!formState.name || !formState.review) {
@@ -104,7 +116,7 @@ export const TestimonialsPage = () => {
             Prev
           </button>
           <article className="testimonial-card featured-testimonial">
-            <div className="stars">{renderStars(baseTestimonials[activeIndex].rating)}</div>
+            {renderStars(baseTestimonials[activeIndex].rating)}
             <p>{baseTestimonials[activeIndex].review}</p>
             <strong>{baseTestimonials[activeIndex].name}</strong>
             <span>{baseTestimonials[activeIndex].role}</span>
@@ -161,7 +173,7 @@ export const TestimonialsPage = () => {
         <div className="testimonial-grid">
           {allTestimonials.map((testimonial) => (
             <Reveal className="testimonial-card compact-testimonial" key={`${testimonial.name}-${testimonial.review.slice(0, 12)}`}>
-              <div className="stars">{renderStars(testimonial.rating)}</div>
+              {renderStars(testimonial.rating)}
               <p>{testimonial.review}</p>
               <strong>{testimonial.name}</strong>
               <span>{testimonial.role}</span>

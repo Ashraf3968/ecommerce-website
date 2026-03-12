@@ -12,6 +12,7 @@ export const RestaurantProvider = ({ children }) => {
   const [booking, setBooking] = useState(null);
   const [orderNotice, setOrderNotice] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authPrompt, setAuthPrompt] = useState({ open: false, message: "" });
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -30,6 +31,14 @@ export const RestaurantProvider = ({ children }) => {
   const logout = () => {
     window.localStorage.setItem(authKey, "false");
     setIsLoggedIn(false);
+  };
+
+  const openAuthPrompt = (message) => {
+    setAuthPrompt({ open: true, message });
+  };
+
+  const closeAuthPrompt = () => {
+    setAuthPrompt({ open: false, message: "" });
   };
 
   const addToCart = (itemId) => {
@@ -101,6 +110,9 @@ export const RestaurantProvider = ({ children }) => {
     isLoggedIn,
     login,
     logout,
+    authPrompt,
+    openAuthPrompt,
+    closeAuthPrompt,
   };
 
   return <RestaurantContext.Provider value={value}>{children}</RestaurantContext.Provider>;

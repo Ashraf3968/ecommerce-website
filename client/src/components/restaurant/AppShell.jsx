@@ -9,7 +9,15 @@ export const AppShell = ({ children }) => {
   const [newsletterMessage, setNewsletterMessage] = useState("");
   const [salesOpen, setSalesOpen] = useState(false);
   const { pathname } = useLocation();
-  const { theme, setTheme, cartCount, isLoggedIn, logout } = useRestaurant();
+  const {
+    theme,
+    setTheme,
+    cartCount,
+    isLoggedIn,
+    logout,
+    authPrompt,
+    closeAuthPrompt,
+  } = useRestaurant();
   const hasShownRef = useRef(false);
   const salesTimerRef = useRef(null);
 
@@ -84,6 +92,9 @@ export const AppShell = ({ children }) => {
             <a className="nav-login" href="/login.html">
               Login
             </a>
+            <a className="nav-login" href="/signup.html">
+              Sign Up
+            </a>
           </nav>
 
           <div className="nav-actions">
@@ -92,9 +103,14 @@ export const AppShell = ({ children }) => {
                 Logout
               </button>
             ) : (
-              <a className="button button-secondary login-button" href="/login.html">
-                Login
-              </a>
+              <div className="login-actions-right">
+                <a className="button button-secondary login-button" href="/login.html">
+                  Login
+                </a>
+                <a className="button button-primary signup-button" href="/signup.html">
+                  Sign Up
+                </a>
+              </div>
             )}
             <button
               className="theme-toggle"
@@ -178,6 +194,27 @@ export const AppShell = ({ children }) => {
               <button className="button button-secondary" type="button" onClick={closeSales}>
                 Close
               </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {authPrompt.open ? (
+        <div className="modal-overlay" role="dialog" aria-modal="true" onClick={closeAuthPrompt}>
+          <div className="modal-surface auth-modal" onClick={(event) => event.stopPropagation()}>
+            <div className="sales-modal-header">
+              <div>
+                <p className="eyebrow">Login Required</p>
+                <h2>Login or Sign Up to Continue</h2>
+                <p className="hero-copy">{authPrompt.message}</p>
+              </div>
+              <button className="lightbox-close" type="button" onClick={closeAuthPrompt}>
+                Close
+              </button>
+            </div>
+            <div className="hero-actions">
+              <a className="button button-primary" href="/login.html">Login</a>
+              <a className="button button-secondary" href="/signup.html">Sign Up</a>
             </div>
           </div>
         </div>
