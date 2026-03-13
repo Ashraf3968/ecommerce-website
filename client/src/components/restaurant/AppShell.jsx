@@ -32,8 +32,17 @@ export const AppShell = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    if (window.AOS) {
+      window.AOS.init({ duration: 850, once: true, offset: 120, easing: "ease-out" });
+    }
+  }, []);
+
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setMenuOpen(false);
+    if (window.AOS) {
+      window.AOS.refresh();
+    }
   }, [pathname]);
 
   useEffect(() => {
@@ -146,9 +155,6 @@ export const AppShell = ({ children }) => {
           </NavLink>
 
           <nav className={`site-nav ${menuOpen ? "is-open" : ""}`}>
-            <button className="nav-account" type="button" onClick={() => { setAccountOpen(true); setAccountMode("login"); setAccountMessage(""); setMenuOpen(false); }}>
-              {isLoggedIn ? "Account" : "Login"}
-            </button>
             {navLinks.map((link) => (
               <NavLink
                 key={link.to}
@@ -197,7 +203,7 @@ export const AppShell = ({ children }) => {
           </div>
         </header>
 
-        <main>{children}</main>
+        <main className="page-transition" key={pathname}>{children}</main>
 
         <footer className="site-footer">
           <div>
@@ -241,7 +247,7 @@ export const AppShell = ({ children }) => {
                 <p className="eyebrow">Own This Website for Your Restaurant</p>
                 <h2>Own This Website for Your Restaurant</h2>
                 <p className="hero-copy">
-                  Like this website? We are selling this complete restaurant website for only ?3,499. Get your business online today with a professional design.
+                  Like this website? We are selling this complete restaurant website for only Rs. 3,499. Get your business online today with a professional design.
                 </p>
               </div>
               <button className="lightbox-close" type="button" onClick={closeSales}>
@@ -283,6 +289,22 @@ export const AppShell = ({ children }) => {
               </div>
             ) : (
               <>
+                <div className="account-tabs">
+                  <button
+                    type="button"
+                    className={accountMode === "login" ? "active" : ""}
+                    onClick={() => { setAccountMode("login"); setAccountError(""); }}
+                  >
+                    Login
+                  </button>
+                  <button
+                    type="button"
+                    className={accountMode === "signup" ? "active" : ""}
+                    onClick={() => { setAccountMode("signup"); setAccountError(""); }}
+                  >
+                    Sign Up
+                  </button>
+                </div>
                 {accountMode === "login" ? (
                   <form className="account-form" onSubmit={handleLogin}>
                     <label htmlFor="accountEmail">Email</label>
@@ -295,7 +317,7 @@ export const AppShell = ({ children }) => {
 
                     <button className="button button-primary" type="submit">Login</button>
                     <div className="account-divider">
-                      <span>New here?</span>
+                      <span>Don't have an account?</span>
                     </div>
                     <button className="link-button" type="button" onClick={() => { setAccountMode("signup"); setAccountError(""); }}>
                       Create Account
@@ -334,5 +356,3 @@ export const AppShell = ({ children }) => {
     </>
   );
 };
-
-

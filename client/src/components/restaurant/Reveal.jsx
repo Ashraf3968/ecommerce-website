@@ -19,7 +19,7 @@ export const Reveal = ({ children, className = "", as: Tag = "div", ...props }) 
   }, []);
 
   return (
-    <Tag className={`reveal ${className}`.trim()} {...props}>
+    <Tag className={`reveal ${className}`.trim()} data-aos="fade-up" {...props}>
       {children}
     </Tag>
   );

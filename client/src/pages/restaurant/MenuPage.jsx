@@ -1,8 +1,29 @@
 import { useMemo, useState } from "react";
+
 import { DemoCta, PageHero, SectionHeading } from "../../components/restaurant/PageBits";
 import { Reveal } from "../../components/restaurant/Reveal";
 import { useRestaurant } from "../../context/RestaurantContext";
 import { menuItems } from "../../data/restaurantData";
+
+const maxStars = 5;
+
+const Star = ({ filled }) => (
+  <svg
+    className={`star-icon ${filled ? "" : "is-empty"}`.trim()}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path d="M12 2.75l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.05 1.11-6.46-4.7-4.58 6.49-.94L12 2.75z" />
+  </svg>
+);
+
+const renderStars = (rating) => (
+  <div className="stars menu-stars">
+    {Array.from({ length: maxStars }).map((_, index) => (
+      <Star key={index} filled={index < rating} />
+    ))}
+  </div>
+);
 
 export const MenuPage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -52,7 +73,13 @@ export const MenuPage = () => {
                     <span className="menu-category">{item.category}</span>
                     <h3>{item.name}</h3>
                   </div>
-                  <strong>${item.price}</strong>
+                  <div className="menu-card-price">
+                    <strong>${item.price}</strong>
+                    <div className="menu-rating">
+                      {renderStars(item.rating ?? 5)}
+                      <span>{(item.rating ?? 5).toFixed(1)}</span>
+                    </div>
+                  </div>
                 </div>
                 <p>{item.description}</p>
                 <div className="card-meta-row">
@@ -71,3 +98,8 @@ export const MenuPage = () => {
     </>
   );
 };
+
+
+
+
+

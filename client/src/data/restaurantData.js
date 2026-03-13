@@ -78,6 +78,7 @@ export const menuItems = [
     description: "Creamy burrata, blistered tomatoes, basil ash, and sourdough crisps.",
     image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80",
     dietary: "Vegetarian",
+    rating: 5,
   },
   {
     id: 2,
@@ -87,6 +88,7 @@ export const menuItems = [
     description: "Hummus, muhammara, olives, labneh, and warm zaatar bread.",
     image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80",
     dietary: "Shareable",
+    rating: 4,
   },
   {
     id: 3,
@@ -96,6 +98,7 @@ export const menuItems = [
     description: "Premium grilled wagyu, potato pave, pepper jus, and heirloom carrots.",
     image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=900&q=80",
     dietary: "Chef's Pick",
+    rating: 5,
   },
   {
     id: 4,
@@ -105,6 +108,7 @@ export const menuItems = [
     description: "House pasta with braised lamb, rosemary reduction, and aged pecorino.",
     image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80",
     dietary: "House Made",
+    rating: 4,
   },
   {
     id: 5,
@@ -114,6 +118,7 @@ export const menuItems = [
     description: "Creamy basque cheesecake, berry compote, and almond praline.",
     image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=900&q=80",
     dietary: "Signature Sweet",
+    rating: 5,
   },
   {
     id: 6,
@@ -123,6 +128,7 @@ export const menuItems = [
     description: "Silky dark chocolate torte with espresso caramel and sea salt.",
     image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=80",
     dietary: "Best Seller",
+    rating: 4,
   },
   {
     id: 7,
@@ -132,6 +138,7 @@ export const menuItems = [
     description: "Oak-smoked bourbon, orange bitters, demerara syrup, and citrus mist.",
     image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=900&q=80",
     dietary: "Bar Favorite",
+    rating: 5,
   },
   {
     id: 8,
@@ -141,6 +148,7 @@ export const menuItems = [
     description: "Pomegranate shrub, sparkling citrus, mint, and crushed ice.",
     image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=900&q=80",
     dietary: "Zero Proof",
+    rating: 4,
   },
 ];
 
@@ -332,3 +340,5 @@ export const reservationSlots = [
   "9:00 PM",
   "9:30 PM",
 ];
+
+
