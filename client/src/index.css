@@ -134,7 +134,7 @@ button { cursor: pointer; }
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
-.site-nav { display: flex; gap: 1.15rem; align-items: center; }
+.site-nav { display: flex; gap: 1.15rem; align-items: center; position: relative; }
 .site-nav a { color: var(--muted); position: relative; font-weight: 500; }
 .site-nav a::after {
   content: "";
@@ -536,6 +536,8 @@ textarea, .slot-picker, .reservation-page-form .button { grid-column: 1 / -1; }
 
 @media (max-width: 860px) {
   .site-nav {
+    backdrop-filter: blur(18px);
+    transition: 0.32s ease;
     position: absolute;
     top: calc(100% + 0.5rem);
     left: 0;
@@ -645,4 +647,150 @@ textarea, .slot-picker, .reservation-page-form .button { grid-column: 1 / -1; }
     justify-content: flex-start;
   }
 }
+
+
+/* Navbar premium luxury overrides */
+.site-header {
+  padding: 1.1rem 0;
+  transition: padding 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.site-header::before {
+  background: rgba(8, 6, 5, 0.78);
+  border-color: rgba(242, 199, 122, 0.22);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+}
+
+.site-header.is-scrolled {
+  padding: 0.65rem 0;
+}
+
+.site-header.is-scrolled::before {
+  background: rgba(5, 4, 3, 0.9);
+  border-color: rgba(242, 199, 122, 0.3);
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.45);
+}
+
+.brand {
+  gap: 1rem;
+}
+
+.brand span {
+  letter-spacing: 0.18em;
+  font-size: 1.55rem;
+}
+
+.brand small {
+  font-size: 0.64rem;
+  letter-spacing: 0.28em;
+  opacity: 0.75;
+}
+
+
+.site-nav a {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: transform 0.28s ease, color 0.28s ease;
+}
+
+.site-nav a:hover {
+  transform: translateY(-2px);
+}
+
+.site-nav a::after {
+  height: 2.5px;
+  background: linear-gradient(90deg, var(--gold-strong), var(--accent-2));
+}
+
+.nav-actions {
+  gap: 0.85rem;
+}
+
+.theme-toggle, .cart-pill {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.account-button {
+  background: linear-gradient(135deg, var(--gold), var(--accent-2));
+  color: #1f130e;
+  box-shadow: 0 16px 38px rgba(242, 199, 122, 0.3);
+  border: none;
+}
+
+.account-button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 22px 50px rgba(242, 199, 122, 0.38);
+}
+
+
+
+.site-nav::before {
+  content: "";
+  position: absolute;
+  inset: -1rem -1.5rem;
+  background: radial-gradient(circle at center, rgba(242, 199, 122, 0.2), transparent 65%);
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.site-nav:hover::before {
+  opacity: 1;
+}
+
+.site-nav a {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.28s ease, color 0.28s ease;
+}
+
+.site-nav a:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.site-nav a::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  width: 120%;
+  height: 180%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(242, 199, 122, 0.25), transparent 60%);
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 0.28s ease;
+  z-index: -1;
+}
+
+.site-nav a:hover::before {
+  opacity: 1;
+}
+
+.hamburger {
+  transition: transform 0.28s ease;
+}
+.hamburger span {
+  transition: transform 0.32s ease, opacity 0.28s ease;
+}
+.hamburger.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.is-open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.2);
+}
+.hamburger.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+
+
+
+
+
 

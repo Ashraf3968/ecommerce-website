@@ -6,6 +6,7 @@ import { useRestaurant } from "../../context/RestaurantContext";
 export const AppShell = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loaderVisible, setLoaderVisible] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [newsletterMessage, setNewsletterMessage] = useState("");
   const [salesOpen, setSalesOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
@@ -35,6 +36,15 @@ export const AppShell = ({ children }) => {
     if (window.AOS) {
       window.AOS.init({ duration: 850, once: true, offset: 120, easing: "ease-out" });
     }
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -145,7 +155,8 @@ export const AppShell = ({ children }) => {
       </div>
 
       <div className="app-shell">
-        <header className="site-header">
+        <header className={`site-header ${isScrolled ? "is-scrolled" : ""}`}>
+
           <NavLink className="brand" to="/" aria-label="DIGITQUO Demo Restaurant Home">
             <img className="brand-logo" src="/logo.png" alt="DIGITQUO logo" />
             <div className="brand-text">
@@ -356,3 +367,5 @@ export const AppShell = ({ children }) => {
     </>
   );
 };
+
+
