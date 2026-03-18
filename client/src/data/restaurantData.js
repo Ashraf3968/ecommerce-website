@@ -150,6 +150,46 @@ export const menuItems = [
     dietary: "Zero Proof",
     rating: 4,
   },
+  {
+    id: 9,
+    category: "Signature Dishes",
+    name: "Saffron Butter Lobster",
+    price: 38,
+    description: "Butter-poached lobster with saffron glaze and garlic greens.",
+    image: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=900&q=80",
+    dietary: "Chef Special",
+    rating: 5,
+  },
+  {
+    id: 10,
+    category: "Special Combos",
+    name: "Chef's Grill Duo",
+    price: 34,
+    description: "Wagyu striploin, citrus prawns, and seasonal vegetables.",
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80",
+    dietary: "Shareable",
+    rating: 4,
+  },
+  {
+    id: 11,
+    category: "Seasonal Specials",
+    name: "Autumn Truffle Risotto",
+    price: 22,
+    description: "Black truffle risotto with parmesan crisp and herbs.",
+    image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=900&q=80",
+    dietary: "Seasonal",
+    rating: 5,
+  },
+  {
+    id: 12,
+    category: "Signature Dishes",
+    name: "Rosemary Lamb Linguine",
+    price: 29,
+    description: "House pasta with braised lamb and rosemary reduction.",
+    image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80",
+    dietary: "House Made",
+    rating: 4,
+  },
 ];
 
 export const galleryItems = [
@@ -340,5 +380,38 @@ export const reservationSlots = [
   "9:00 PM",
   "9:30 PM",
 ];
+
+
+
+export const highlights = [
+  { title: "Signature Hospitality", text: "White-glove service, thoughtful pacing, and a dining flow designed to feel effortless." },
+  { title: "Seasonal Ingredients", text: "Daily-sourced produce, premium proteins, and chef-driven tasting rituals." },
+  { title: "Private Dining", text: "Curated spaces for celebrations, executive dinners, and premium brand events." },
+];
+
+export const offers = [
+  { title: "Chef's Tasting Set", text: "Five-course seasonal tasting with curated pairings.", price: "Rs. 2,450", tag: "Chef Special" },
+  { title: "Date Night Experience", text: "Two-course dinner with signature cocktail pairing.", price: "Rs. 1,650", tag: "Limited" },
+  { title: "Weekend Brunch Table", text: "Curated brunch flights with live dessert station.", price: "Rs. 1,250", tag: "Popular" },
+];
+
+export const videoShowcase = [
+  { title: "Ambient Dining Experience", tag: "Dining Room", image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80" },
+  { title: "Chef at Work", tag: "Kitchen", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" },
+  { title: "Signature Plating", tag: "Culinary Art", image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=80" },
+];
+
+export const eventHighlights = [
+  { title: "Private Dining", text: "Custom menus, sommelier-led pairings, and dedicated hosts." },
+  { title: "Corporate Evenings", text: "Premium hospitality for executive dinners and brand showcases." },
+  { title: "Celebration Tables", text: "Personalized moments for anniversaries, proposals, and milestones." },
+];
+
+export const faqItems = [
+  { question: "Do you accept same-day reservations?", answer: "Yes, same-day bookings are available based on table availability." },
+  { question: "Is there a vegetarian tasting menu?", answer: "We offer a seasonal vegetarian tasting menu with curated pairings." },
+  { question: "Can we host private events?", answer: "Absolutely. Private dining packages are available for groups and events." },
+];
+
 
 

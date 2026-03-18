@@ -187,9 +187,12 @@ export const AppShell = ({ children }) => {
             >
               {theme === "dark" ? "Light" : "Dark"}
             </button>
-            <NavLink className="cart-pill" to="/order">
-              Cart {cartCount}
-            </NavLink>
+            <NavLink className="cart-pill" to="/order" aria-label="Cart">
+  <svg className="cart-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 .001 4A2 2 0 0 0 17 18zM6.2 6l.7 3.5h10.7l1.2-4.5H7.3l-.3-1.5H3V1h3.1l1 5z" />
+  </svg>
+  <span className="cart-count">{cartCount}</span>
+</NavLink>
             <button
               className="button button-primary account-button"
               type="button"
@@ -269,9 +272,6 @@ export const AppShell = ({ children }) => {
               <NavLink className="button button-primary" to="/contact" onClick={closeSales}>
                 Contact Us to Purchase
               </NavLink>
-              <button className="button button-secondary" type="button" onClick={closeSales}>
-                Close
-              </button>
             </div>
           </div>
         </div>
@@ -367,5 +367,6 @@ export const AppShell = ({ children }) => {
     </>
   );
 };
+
 
 

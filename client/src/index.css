@@ -794,3 +794,84 @@ textarea, .slot-picker, .reservation-page-form .button { grid-column: 1 / -1; }
 
 
 
+
+/* New premium sections */
+.highlight-grid, .offer-grid, .video-grid, .event-grid, .faq-grid {
+  display: grid;
+  gap: 1.8rem;
+}
+
+.highlight-grid, .offer-grid, .event-grid, .faq-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.video-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.offer-card, .event-card, .faq-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 0.8rem;
+}
+
+.offer-card strong {
+  font-size: 1.2rem;
+  color: var(--gold-strong);
+}
+
+.video-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.video-card img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.7s ease, filter 0.7s ease;
+}
+
+.video-card:hover img {
+  transform: scale(1.06);
+  filter: brightness(1.05);
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: end;
+  gap: 0.6rem;
+  padding: 1.4rem;
+  background: linear-gradient(180deg, rgba(7, 6, 5, 0.1), rgba(7, 6, 5, 0.82));
+  color: #fff4e7;
+}
+
+.play-button {
+  align-self: start;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  color: var(--gold-strong);
+}
+
+@media (max-width: 1100px) {
+  .highlight-grid, .offer-grid, .event-grid, .faq-grid, .video-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .highlight-grid, .offer-grid, .event-grid, .faq-grid, .video-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
